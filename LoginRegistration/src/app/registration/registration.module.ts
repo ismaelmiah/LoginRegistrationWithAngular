@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [RegistrationFormComponent],
   imports: [
     CommonModule
   ]
