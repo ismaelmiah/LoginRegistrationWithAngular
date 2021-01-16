@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutMeComponent, HomeComponent } from './components';
+import { HomeRoutingModule } from './home.routing.module';
 
 
 
 @NgModule({
   declarations: [HomeComponent, AboutMeComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    HomeRoutingModule
   ]
 })
-export class HomeModule { }
+export class HomeModule {
+  constructor(){console.log("HomeModule called")}
+ }

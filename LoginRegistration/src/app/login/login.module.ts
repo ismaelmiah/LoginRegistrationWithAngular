@@ -13,13 +13,11 @@ import { LoginRoutingModule } from './login.routing.module';
     ReactiveFormsModule,
     LoginRoutingModule
   ],
-  exports:[
-    LoginFormComponent
-  ]
+  exports:[]
 })
 export class LoginModule { 
   constructor(){
-    console.log("Login called")
+    console.log("LoginModule called")
 
   }
 }

@@ -12,4 +12,6 @@ import { RegistrationRoutingModule } from './registration.routing.module';
     RegistrationRoutingModule
   ]
 })
-export class RegistrationModule { }
+export class RegistrationModule { 
+  constructor(){console.log("RegistrationModule Called")}
+}
