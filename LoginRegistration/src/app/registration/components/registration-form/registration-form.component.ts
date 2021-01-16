@@ -10,7 +10,7 @@ import { CustomValidators } from 'src/app/Utils/CustomValidators';
 export class RegistrationFormComponent implements OnInit {
 
   signUpForm: FormGroup;
-  roles: string[] = ['User', 'Admin'];
+  roles: string[] = ['Admin', 'User' ];
 
   constructor() { }
 
@@ -29,7 +29,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.signUpForm);
+    console.log("Registration Submitted - ",this.signUpForm);
   }
 
   getErrorForNameField(field: string){
