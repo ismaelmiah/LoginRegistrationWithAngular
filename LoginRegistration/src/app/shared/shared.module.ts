@@ -8,6 +8,6 @@ import { SharedRoutingModule } from './shared.routing.module';
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
   imports: [CommonModule, LoginModule, RegistrationModule, SharedRoutingModule],
-  exports: [LoginModule, RegistrationModule, HeaderComponent, FooterComponent],
+  exports: [ HeaderComponent, FooterComponent],
 })
 export class SharedModule {}

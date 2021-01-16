@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => RegistrationModule
-  },
+  }
 ];
 
 @NgModule({
