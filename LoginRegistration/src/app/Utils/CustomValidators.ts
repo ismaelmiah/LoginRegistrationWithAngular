@@ -31,10 +31,10 @@ export class CustomValidators {
   static getErrorForPassword(field: string, signUpForm: FormGroup): string {
     return signUpForm.controls[field].hasError('required')
       ? 'This field is required!'
-      : signUpForm.controls[field].hasError('invalidPassword')
-      ? 'Password has at least 1 Uppercase, 1 Lowercase, 1 Number'
       : signUpForm.controls[field].hasError('minlength')
-      ? 'Password must be at least 6 characters length'
+      ? 'Required at least 6 characters length'
+      : signUpForm.controls[field].hasError('invalidPassword')
+      ? 'Required 1 Upper, 1 lower, 1 Number'
       : '';
   }
 
@@ -44,7 +44,7 @@ export class CustomValidators {
       : signUpForm.controls[field].hasError('incorrectNameFormat')
       ? 'Not a valid name'
       : signUpForm.controls[field].hasError('minlength')
-      ? 'Required length is at least 3 characters'
+      ? 'Required at least 3 characters Length'
       : '';
   }
 
