@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 export class CustomValidators {
   static mailFormat(control: FormControl): { [key: string]: boolean } {
@@ -26,6 +26,31 @@ export class CustomValidators {
       return { invalidPassword: true };
     }
     return null;
+  }
+
+  static FormConfigured(): FormGroup{
+    return new FormGroup({
+      firstName: new FormControl(null, [
+        Validators.required,
+        this.nameFormat,
+        Validators.minLength(3),
+      ]),
+      lastName: new FormControl(null, [
+        Validators.required,
+        this.nameFormat,
+        Validators.minLength(3),
+      ]),
+      email: new FormControl(null, [
+        Validators.required,
+        this.mailFormat,
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        this.checkPasswords,
+        Validators.minLength(6),
+      ]),
+      role: new FormControl(null),
+    })
   }
 
   static getErrorForPassword(field: string, signUpForm: FormGroup): string {

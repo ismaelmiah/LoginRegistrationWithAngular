@@ -5,6 +5,7 @@ import { MessageService } from './message.service';
 import { User } from '../Model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -92,8 +93,14 @@ export class DataService {
   //   this.router.navigate(['/account/login']);
   // }
 
-  register(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
+  register(form: FormGroup): Observable<User> {
+    const newUser: any = {
+      firstName: form.get('firstName').value,
+      lastName: form.get('lastName').value,
+      email: form.get('email').value,
+      password: form.get('password').value,
+    };
+    return this.http.post<User>(this.usersUrl, newUser, this.httpOptions).pipe(
       tap((newuser: User) => this.log(`added user w/ id=${newuser.id}`)),
       catchError(this.handleError<User>('addUser'))
     );
