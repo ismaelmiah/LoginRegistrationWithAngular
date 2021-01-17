@@ -1,30 +1,48 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { User } from '../Model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
   private usersUrl = 'api/users';
+  users: User[];
 
   constructor(
     private router: Router,
     private http: HttpClient,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    private authService: AuthService
+  ) {
+    this.getAll().subscribe((users) => (this.users = users));
+  }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
+  login(email: string, password: string) {
+    const user = this.users.find(x => x.email === email && x.password === password);
+    if(user!=null) this.authService.login();
+    else this.authService.logout();
+  }
+
+  // logout() {
+  //     // remove user from local storage and set current user to null
+  //     localStorage.removeItem('user');
+  //     this.userSubject.next(null);
+  //     this.router.navigate(['/account/login']);
+  // }
+
   /** GET users from the server */
-  getUsers(): Observable<User[]> {
+  getAll(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl).pipe(
       tap((_) => this.log('fetched heroes')),
       catchError(this.handleError<User[]>('getHeroes', []))
@@ -32,23 +50,20 @@ export class DataService {
   }
 
   /** GET hero by id. Will 404 if id not found */
-  getUser(id: number): Observable<User> {
+  getById(id: number): Observable<User> {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched user id=${id}`)),
+      tap((_) => this.log(`fetched user id=${id}`)),
       catchError(this.handleError<User>(`getUser id=${id}`))
     );
   }
-  
+
   /** POST: add a new hero to the server */
-  private addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
-      tap((newuser: User) => this.log(`added user w/ id=${newuser.id}`)),
-      catchError(this.handleError<User>('addUser'))
-    );
+  addUser(form: FormGroup) {
+    this.register(form).subscribe((data: any) => {
+      this.users.push(data);
+    });
   }
-
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -67,8 +82,6 @@ export class DataService {
   private log(message: string) {
     this.messageService.add(`HeroService: ${message}`);
   }
-
-  
 
   // login(username, password) {
   //   return this.http
@@ -105,10 +118,6 @@ export class DataService {
       catchError(this.handleError<User>('addUser'))
     );
   }
-
-  // getAll() {
-  //   return this.http.get<User[]>(`${environment.apiUrl}/users`);
-  // }
 
   // getById(id: string) {
   //   return this.http.get<User>(`${environment.apiUrl}/users/${id}`);

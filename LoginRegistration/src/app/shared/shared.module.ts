@@ -8,7 +8,6 @@ import {
   MainContentComponent,
 } from './components';
 import { SharedRoutingModule } from './shared.routing.module';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [

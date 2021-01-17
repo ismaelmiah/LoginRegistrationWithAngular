@@ -19,14 +19,9 @@ export class RegistrationFormComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.getUsers();
+    this.dataService.getAll().subscribe(x=>this.users = x);
     this.initForm();
   }
-
-  getUsers(): void {
-    this.dataService.getUsers().subscribe((users) => (this.users = users));
-  }
-
   initForm() {
     this.signUpForm = CustomValidators.FormConfigured();
   }
