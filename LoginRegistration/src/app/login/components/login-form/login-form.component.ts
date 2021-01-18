@@ -41,15 +41,18 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    this.authService.isAuthenticated(email, password).then(res => {
-      if (res!=null){
-         this.localStorage.store('user', res);
-         this.router.navigate(['/user'])
-      }
-      else {
-        alert("Login Failed")
-      }
-    });
+    if (this.localStorage.retrieve('user')) {
+      this.router.navigate(['/user']);
+    } else {
+      this.authService.isAuthenticated(email, password).then((res) => {
+        if (res != null) {
+          this.localStorage.store('user', res);
+          this.router.navigate(['/user']);
+        } else {
+          alert('Login Failed');
+        }
+      });
+    }
   }
 
   getErrorForEmailField() {
