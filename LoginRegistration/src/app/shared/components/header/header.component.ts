@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LocalStorageService } from 'ngx-webstorage';
+import { DataService } from 'src/app/services';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +7,14 @@ import { LocalStorageService } from 'ngx-webstorage';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  constructor(private localstorage: LocalStorageService, private route: Router) { }
+  isLoggedIn;
+  constructor(private dataService: DataService) {
+    this.isLoggedIn = this.dataService.userValue ? true : false;
+   }
 
   ngOnInit(): void {
   }
   logout(){
-    this.localstorage.clear('currentUser');
-    this.route.navigate(['']);
+    this.dataService.logout();
   }
 }

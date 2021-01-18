@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
-                case url.endsWith('/register') && method === 'POST':
+                case url.endsWith('/user/register') && method === 'POST':
                     return register();
                 case url.endsWith('/users') && method === 'GET':
                     return getUsers();

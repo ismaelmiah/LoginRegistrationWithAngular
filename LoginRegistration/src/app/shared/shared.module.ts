@@ -8,12 +8,14 @@ import {
   MainContentComponent,
 } from './components';
 import { SharedRoutingModule } from './shared.routing.module';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     MainContentComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,

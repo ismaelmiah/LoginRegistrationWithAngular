@@ -5,9 +5,7 @@ import { AuthUser, User } from '../Model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class DataService {
   private usersUrl = 'http://localhost:4200';
   private userSubject: BehaviorSubject<AuthUser>;
@@ -26,27 +24,6 @@ export class DataService {
     return this.userSubject.value;
   }
 
-  // login(email, password) {
-  //   return this.http
-  //     .post<User>(`${this.usersUrl}/users/authenticate`, {
-  //       email,
-  //       password,
-  //     })
-  //     .pipe(
-  //       map((user) => {
-  //         this.temp.id = user.id;
-  //         this.temp.firstName = user.firstName;
-  //         this.temp.lastName = user.lastName;
-  //         this.temp.email = user.email;
-          
-          
-  //         // store user details and jwt token in local storage to keep user logged in between page refreshes
-  //         localStorage.setItem('currentUser', JSON.stringify(user));
-  //         this.userSubject.next(this.temp);
-  //         return user;
-  //       })
-  //     );
-  // }
 
   login(email, password) {
     return this.http.post(`${this.usersUrl}/users/authenticate`, { email, password })
@@ -61,13 +38,13 @@ export class DataService {
 
   logout() {
     // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
+    localStorage.removeItem('currentUser');
     this.userSubject.next(null);
     this.router.navigate(['login']);
   }
 
   register(user: User) {
-    return this.http.post(`${this.usersUrl}/register`, user);
+    return this.http.post(`${this.usersUrl}/user/register`, user);
   }
 
   getAll() {

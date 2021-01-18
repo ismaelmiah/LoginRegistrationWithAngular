@@ -17,7 +17,6 @@ export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
   submitted: boolean;
   loading: boolean;
-  returnUrl: any;
 
  
   constructor(private dataService: DataService, 
@@ -60,7 +59,7 @@ export class LoginFormComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate(['']);
                 },
                 error => {
                     this.alertService.error(error);

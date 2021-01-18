@@ -7,12 +7,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService, DataService } from './services';
-import { authInterceptorProviders } from './Auth/auth-interceptor.service';
-import { NgxWebstorageModule } from 'ngx-webstorage';
-import {
-  authToketnInterceptorProviders,
-  JwtInterceptor,
-} from './Auth/jwt.interceptor';
+import { authInterceptorProviders, authToketnInterceptorProviders, errorInterceptors } from './Auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,11 +18,11 @@ import {
     }),
     BrowserModule,
     SharedModule,
-    NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([]),
   ],
   providers: [
     DataService,
+    errorInterceptors,
     authToketnInterceptorProviders,
     authInterceptorProviders,
   ],

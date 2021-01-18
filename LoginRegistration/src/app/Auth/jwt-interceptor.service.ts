@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { DataService } from '../services';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor {
+export class JwtInterceptorService implements HttpInterceptor {
   constructor(private dataService: DataService) {}
   private usersUrl = 'http://localhost:4200';
 
@@ -34,5 +34,5 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 }
 export const authToketnInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
 ];

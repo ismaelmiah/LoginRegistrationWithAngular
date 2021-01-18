@@ -17,7 +17,6 @@ export class RegistrationFormComponent implements OnInit {
   signUpForm: FormGroup;
   roles: string[] = ['Admin', 'User'];
 
-  users: User[];
   submitted: boolean;
   loading: boolean;
 
@@ -27,7 +26,6 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router,) {}
 
   ngOnInit(): void {
-    this.dataService.getAll().subscribe(x=>this.users = x);
     this.initForm();
   }
   initForm() {
