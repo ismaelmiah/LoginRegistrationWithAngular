@@ -15,15 +15,6 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          style="cursor: pointer"
-          routerLinkActive="active"
-          routerLink="user/profile"
-          >profile</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link"
           *ngIf="!isLoggedIn$"
           style="cursor: pointer"
           routerLinkActive="active"
@@ -52,7 +43,7 @@
           *ngIf="isLoggedIn$"
           style="cursor: pointer"
           routerLinkActive="active"
-          routerLink="user"
+          routerLink="user/user-list"
           >users</a
         >
       </li>

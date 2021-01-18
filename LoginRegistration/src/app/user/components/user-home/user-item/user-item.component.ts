@@ -4,11 +4,11 @@ import { User } from 'src/app/Model';
 import { DataService } from 'src/app/services';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css'],
+  selector: 'app-user-item',
+  templateUrl: './user-item.component.html',
+  styleUrls: ['./user-item.component.css'],
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserItemComponent implements OnInit, OnDestroy {
   get id(): number {
     return this.dataService.userValue.id;
   }
