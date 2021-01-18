@@ -51,7 +51,7 @@ export class DataService {
     return this.http.get<User[]>(`${this.usersUrl}/users`);
   }
 
-  getById(id: string) {
+  getById(id: number) {
     return this.http.get<User>(`${this.usersUrl}/users/${id}`);
   }
 

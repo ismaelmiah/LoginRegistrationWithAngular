@@ -59,7 +59,7 @@ export class LoginFormComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate(['']);
+                    this.router.navigate(['user/profile']);
                 },
                 error => {
                     this.alertService.error(error);
