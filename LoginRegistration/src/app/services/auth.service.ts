@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'ngx-webstorage';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../Model';
 import { DataService } from './data.service';
@@ -20,8 +19,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<IAuthUser>;
   private currentUser: Observable<IAuthUser>;
   
-  constructor(private dataService: DataService, 
-    private localStorage: LocalStorageService) {}
+  constructor(private dataService: DataService) {}
 //     this.currentUserSubject = new BehaviorSubject<IAuthUser>(JSON.parse(localStorage.getItem('user')));
 //     this.currentUser = this.currentUserSubject.asObservable();
 //   }

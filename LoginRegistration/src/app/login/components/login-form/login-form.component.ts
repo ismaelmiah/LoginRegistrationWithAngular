@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, DataService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
-import { LocalStorageService } from 'ngx-webstorage';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/Utils/alert.service';
 import { first } from 'rxjs/operators';
