@@ -27,6 +27,7 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router,) {}
 
   ngOnInit(): void {
+    this.dataService.getAll().subscribe(x=>this.users = x);
     this.initForm();
   }
   initForm() {

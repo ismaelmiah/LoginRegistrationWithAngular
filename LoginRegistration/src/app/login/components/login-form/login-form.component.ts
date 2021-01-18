@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, DataService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
 import { LocalStorageService } from 'ngx-webstorage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/Utils/alert.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-form',
@@ -13,13 +15,15 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
+  submitted: boolean;
+  loading: boolean;
+  returnUrl: any;
 
-  constructor(
-    private authService: AuthService,
-    private localStorage: LocalStorageService,
-    private router: Router
-  ) {}
-
+ 
+  constructor(private dataService: DataService, 
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router,) {}
   ngOnInit(): void {
     this.initform();
   }
@@ -41,18 +45,27 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    if (this.localStorage.retrieve('user')) {
-      this.router.navigate(['/user']);
-    } else {
-      this.authService.isAuthenticated(email, password).then((res) => {
-        if (res != null) {
-          this.localStorage.store('user', res);
-          this.router.navigate(['/user']);
-        } else {
-          alert('Login Failed');
+    this.submitted = true;
+
+        // reset alerts on submit
+        this.alertService.clear();
+
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+            return;
         }
-      });
-    }
+
+        this.loading = true;
+        this.dataService.login(email, password)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
   }
 
   getErrorForEmailField() {

@@ -6,21 +6,31 @@ import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService ,DataService } from './services';
+import { InMemoryDataService, DataService } from './services';
 import { authInterceptorProviders } from './Auth/auth-interceptor.service';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import {
+  authToketnInterceptorProviders,
+  JwtInterceptor,
+} from './Auth/jwt.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+      dataEncapsulation: false,
+    }),
     BrowserModule,
     SharedModule,
     NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([]),
   ],
-  providers:[DataService, authInterceptorProviders],
+  providers: [
+    DataService,
+    authToketnInterceptorProviders,
+    authInterceptorProviders,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
