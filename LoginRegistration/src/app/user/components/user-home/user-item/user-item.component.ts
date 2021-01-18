@@ -1,14 +1,14 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/Model';
 import { DataService } from 'src/app/services';
 
 @Component({
-  selector: 'app-user-home',
-  templateUrl: './user-home.component.html',
-  styleUrls: ['./user-home.component.css']
+  selector: 'app-user-item',
+  templateUrl: './user-item.component.html',
+  styleUrls: ['./user-item.component.css'],
 })
-export class UserHomeComponent {
+export class UserItemComponent implements OnInit, OnDestroy {
   get id(): number {
     return this.dataService.userValue.id;
   }
