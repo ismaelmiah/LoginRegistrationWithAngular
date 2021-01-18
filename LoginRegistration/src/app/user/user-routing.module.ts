@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: UserHomeComponent,
+    canActivate: [AuthGuard]
   },
   { path: 'profile', component: UserProfileComponent },
 ];

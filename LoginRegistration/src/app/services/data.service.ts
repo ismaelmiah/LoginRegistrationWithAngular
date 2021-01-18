@@ -19,7 +19,6 @@ export class DataService {
     private router: Router,
     private http: HttpClient,
     private messageService: MessageService,
-    private authService: AuthService
   ) {
     this.getAll().subscribe((users) => (this.users = users));
   }
@@ -28,10 +27,10 @@ export class DataService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  login(email: string, password: string) {
+  login(email, password) {
     const user = this.users.find(x => x.email === email && x.password === password);
-    if(user!=null) this.authService.login();
-    else this.authService.logout();
+    if(user!=null) return user;
+    else return null;
   }
 
   // logout() {
@@ -43,10 +42,7 @@ export class DataService {
 
   /** GET users from the server */
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl).pipe(
-      tap((_) => this.log('fetched heroes')),
-      catchError(this.handleError<User[]>('getHeroes', []))
-    );
+    return this.http.get<User[]>(this.usersUrl);
   }
 
   /** GET hero by id. Will 404 if id not found */

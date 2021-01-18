@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DataService } from 'src/app/services';
+import { AuthService, DataService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
+import { LocalStorageService } from 'ngx-webstorage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
+  providers: [AuthService],
 })
 export class LoginFormComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private authService: AuthService,
+    private localStorage: LocalStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.initform();
@@ -34,7 +41,15 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    this.dataService.login(email, password);
+    this.authService.isAuthenticated(email, password).then(res => {
+      if (res!=null){
+         this.localStorage.store('user', res);
+         this.router.navigate(['/user'])
+      }
+      else {
+        alert("Login Failed")
+      }
+    });
   }
 
   getErrorForEmailField() {

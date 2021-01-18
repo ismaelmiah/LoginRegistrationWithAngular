@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private localstorage: LocalStorageService, private route: Router) { }
 
   ngOnInit(): void {
   }
-
+  logout(){
+    this.localstorage.clear('user');
+    this.route.navigate(['']);
+  }
 }

@@ -8,11 +8,11 @@ import { User } from '../Model/User';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const users = [
-      { id: 1, firstName: 'A', lastName: 'B', email: 'a@gmail.com'},
-      { id: 2, firstName: 'B', lastName: 'B', email: 'b@gmail.com'},
-      { id: 3, firstName: 'C', lastName: 'B', email: 'c@gmail.com'},
-      { id: 4, firstName: 'D', lastName: 'B', email: 'd@gmail.com'},
-      { id: 5, firstName: 'E', lastName: 'B', email: 'e@gmail.com'},
+      { id: 1, firstName: 'A', lastName: 'B', email: 'a@gmail.com', password: 'Ismail1'},
+      { id: 2, firstName: 'B', lastName: 'B', email: 'b@gmail.com', password: 'Ismail1'},
+      { id: 3, firstName: 'C', lastName: 'B', email: 'c@gmail.com', password: 'Ismail1'},
+      { id: 4, firstName: 'D', lastName: 'B', email: 'd@gmail.com', password: 'Ismail1'},
+      { id: 5, firstName: 'E', lastName: 'B', email: 'e@gmail.com', password: 'Ismail1'},
     ];
     return {users};
   }

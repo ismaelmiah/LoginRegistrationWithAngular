@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService ,DataService } from './services';
+import { authInterceptorProviders } from './Auth/auth-interceptor.service';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,9 +17,10 @@ import { InMemoryDataService ,DataService } from './services';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false }),
     BrowserModule,
     SharedModule,
+    NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([]),
   ],
-  providers:[DataService],
+  providers:[DataService, authInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

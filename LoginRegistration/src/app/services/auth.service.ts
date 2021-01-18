@@ -1,26 +1,16 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
   
-  constructor() {}
-  loggedIn = false;
-  isAuthenticated() {
+  constructor(private dataService: DataService) {}
+  isAuthenticated(email: string, pwd: string) {
     const promise = new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(this.loggedIn);
+        resolve(this.dataService.login(email, pwd));
       }, 800);
     });
     return promise;
-  }
-  login() {
-    this.loggedIn = true;
-  }
-
-  logout() {
-    this.loggedIn = false;
   }
 }
