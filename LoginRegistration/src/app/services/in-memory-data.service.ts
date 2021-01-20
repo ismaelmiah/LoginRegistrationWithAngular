@@ -8,13 +8,43 @@ import { User } from '../Model/User';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const users = [
-      { id: 1, firstName: 'A', lastName: 'B', email: 'a@gmail.com', password: 'Ismail1'},
-      { id: 2, firstName: 'B', lastName: 'B', email: 'b@gmail.com', password: 'Ismail1'},
-      { id: 3, firstName: 'C', lastName: 'B', email: 'c@gmail.com', password: 'Ismail1'},
-      { id: 4, firstName: 'D', lastName: 'B', email: 'd@gmail.com', password: 'Ismail1'},
-      { id: 5, firstName: 'E', lastName: 'B', email: 'e@gmail.com', password: 'Ismail1'},
+      {
+        id: 1,
+        firstName: 'Ashiq',
+        lastName: 'Miah',
+        email: 'admin@gmail.com',
+        password: 'Ismail1',
+      },
+      {
+        id: 2,
+        firstName: 'Bappi',
+        lastName: 'Roy',
+        email: 'bappi@gmail.com',
+        password: 'Ismail1',
+      },
+      {
+        id: 3,
+        firstName: 'Rabiul',
+        lastName: 'Hasan',
+        email: 'rabiul@gmail.com',
+        password: 'Ismail1',
+      },
+      {
+        id: 4,
+        firstName: 'Tahsan',
+        lastName: 'Ahamed',
+        email: 'tahsan@gmail.com',
+        password: 'Ismail1',
+      },
+      {
+        id: 5,
+        firstName: 'Zahid',
+        lastName: 'Miah',
+        email: 'zahid@gmail.com',
+        password: 'Ismail1',
+      },
     ];
-    return {users};
+    return { users };
   }
 
   // Overrides the genId method to ensure that a hero always has an id.
@@ -23,7 +53,6 @@ export class InMemoryDataService implements InMemoryDbService {
   // if the heroes array is not empty, the method below returns the highest
   // hero id + 1.
   genId(users: User[]): number {
-    return users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+    return users.length > 0 ? Math.max(...users.map((u) => u.id)) + 1 : 1;
   }
 }
-

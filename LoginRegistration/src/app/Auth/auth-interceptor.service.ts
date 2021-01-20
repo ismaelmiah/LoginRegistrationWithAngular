@@ -6,7 +6,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
 let users = [
-  { id: 1, firstName: 'Ashiq', lastName: 'Miah', email: 'ashiq@gmail.com', password: 'Ismail1'},
+  { id: 1, firstName: 'Ashiq', lastName: 'Miah', email: 'admin@gmail.com', password: 'Ismail1'},
   { id: 2, firstName: 'Bappi', lastName: 'Roy', email: 'bappi@gmail.com', password: 'Ismail1'},
   { id: 3, firstName: 'Rabiul', lastName: 'Hasan', email: 'rabiul@gmail.com', password: 'Ismail1'},
   { id: 4, firstName: 'Tahsan', lastName: 'Ahamed', email: 'tahsan@gmail.com', password: 'Ismail1'},

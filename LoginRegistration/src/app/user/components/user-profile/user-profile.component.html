@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-10">
+  <div class="col-md-6">
     <div class="card mb-3">
       <div class="card-body">
         <div class="row">
@@ -69,6 +69,16 @@
     </div>
   </div>
   <div class="col-md-2">
-    <a routerLink="../edit/{{currentUser?.id}}" class="btn btn-primary mr-1">Edit</a>
+    <button
+      (click)="onEdit(currentUser.id)"
+      class="btn btn-warning mr-1"
+      [disabled]="currentUser.isEditing"
+    >
+      <span
+        *ngIf="currentUser.isEditing"
+        class="spinner-border spinner-border-sm"
+      ></span>
+      <span *ngIf="!currentUser.isEditing">Edit Details</span>
+    </button>
   </div>
 </div>
