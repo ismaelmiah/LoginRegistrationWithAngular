@@ -20,7 +20,6 @@ export class LoginFormComponent implements OnInit {
  
   constructor(private dataService: DataService, 
     private alertService: AlertService,
-    private route: ActivatedRoute,
     private router: Router,) {}
   ngOnInit(): void {
     this.initform();

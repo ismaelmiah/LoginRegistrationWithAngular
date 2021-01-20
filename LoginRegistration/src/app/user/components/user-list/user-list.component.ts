@@ -1,37 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { User } from 'src/app/Model';
 import { DataService } from 'src/app/services';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   users: any;
-  usersSubscription: Subscription;
-  ListenUser: Subscription;
-
-  constructor(private dataService: DataService) { }
+  dataSubscription: Subscription;
+  constructor(private route: ActivatedRoute) {}
   ngOnDestroy(): void {
-    this.usersSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.usersSubscription = this.dataService.getAll().subscribe(data => {
-      this.users = data;
-    })
+    this.dataSubscription = this.route.data.subscribe((data: Data) => {
+      this.users = data['users'];
+      console.log(this.users)
+    });
   }
 
   deleteUser(id: number) {
-    const user = this.users.find(x => x.id === id);
-        user.isDeleting = true;
-        this.dataService.delete(id)
-            .pipe(first())
-            .subscribe(() => {
-                this.users = this.users.filter(x => x.id !== id) 
-            });
-    }
-
+    const user = this.users.find((x) => x.id === id);
+    user.isDeleting = true;
+    // this.dataService.delete(id)
+    //     .pipe(first())
+    //     .subscribe(() => {
+    //         this.users = this.users.filter(x => x.id !== id)
+    //     });
+  }
 }

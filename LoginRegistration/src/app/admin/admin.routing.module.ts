@@ -7,7 +7,7 @@ import { UserDetailComponent, UsersComponent } from './components';
 const routes: Routes = [
     {   path: 'admin', component: UsersComponent,
         children :[
-            { path: 'user', component: UserDetailComponent},
+            { path: '', component: UserDetailComponent},
         ]
     },
 ];

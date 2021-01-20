@@ -67,7 +67,7 @@ export class CustomValidators {
     return signUpForm.controls[field].hasError('required')
       ? 'This field is required!'
       : signUpForm.controls[field].hasError('incorrectNameFormat')
-      ? 'Not a valid name'
+      ? 'Not a valid Data'
       : signUpForm.controls[field].hasError('minlength')
       ? 'Required at least 3 characters Length'
       : '';

@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginModule } from '../login/login.module';
-import { RegistrationModule } from '../registration/registration.module';
 import {
   FooterComponent,
   HeaderComponent,
   MainContentComponent,
+  HomeComponent
 } from './components';
 import { SharedRoutingModule } from './shared.routing.module';
 import { AlertComponent } from './components/alert/alert.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +16,8 @@ import { AlertComponent } from './components/alert/alert.component';
     FooterComponent,
     MainContentComponent,
     AlertComponent,
+    PageNotFoundComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,
