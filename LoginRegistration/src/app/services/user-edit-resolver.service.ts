@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import {
+  Resolve,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Observable } from 'rxjs';
+import { DataService } from './data.service';
+import { User } from '../Model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UserEditResolverService implements Resolve<User> {
+  constructor(private dataService: DataService) {}
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): User | Observable<User> | Promise<User> {
+    //console.log(route.params['id'])
+    return this.dataService.getById(route.params['id']);
+  }
+}

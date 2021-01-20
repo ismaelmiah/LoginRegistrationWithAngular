@@ -1,29 +1,26 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/Model';
-import { DataService } from 'src/app/services';
 
 @Component({
   selector: 'app-user-home',
   templateUrl: './user-home.component.html',
-  styleUrls: ['./user-home.component.css']
+  styleUrls: ['./user-home.component.css'],
 })
-export class UserHomeComponent {
-  get id(): number {
-    return this.dataService.userValue.id;
-  }
-  get currentUserSubscription(): Subscription {
-    return this.dataService.getById(this.id).subscribe((data) => {
-      this.currentUser = data;
-    });
-  }
+export class UserHomeComponent implements OnInit, OnDestroy {
   currentUser: User;
+  dataSubscription: Subscription;
+  isAdmin: boolean;
+  constructor(private route: ActivatedRoute) {}
 
-  constructor(private dataService: DataService) {}
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
-    this.currentUserSubscription
+    this.dataSubscription = this.route.data.subscribe((data: Data) => {
+      this.currentUser = data['profile'];
+      this.isAdmin = this.currentUser.email === 'admin@gmail.com';
+    });
+    this.dataSubscription.unsubscribe();
   }
 }

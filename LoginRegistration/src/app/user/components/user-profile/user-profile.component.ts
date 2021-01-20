@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/Model';
-import { DataService } from 'src/app/services';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,21 +9,14 @@ import { DataService } from 'src/app/services';
   styleUrls: ['./user-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
-  get id(): number {
-    return this.dataService.userValue.id;
-  }
-  get currentUserSubscription(): Subscription {
-    return this.dataService.getById(this.id).subscribe((data) => {
-      this.currentUser = data;
-    });
-  }
   currentUser: User;
+  dataSubscription: Subscription
+  constructor(private route: ActivatedRoute) {}
 
-  constructor(private dataService: DataService) {}
   ngOnDestroy(): void {
   }
 
   ngOnInit(): void {
-    this.currentUserSubscription
+    this.currentUser = this.route.parent.snapshot.data.profile;
   }
 }

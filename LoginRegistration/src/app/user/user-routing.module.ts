@@ -1,18 +1,36 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../Auth/auth.guard';
-import { UserHomeComponent, UserItemComponent, UserListComponent, UserProfileComponent } from './components';
+import { AuthGuard } from '../Auth';
+import { UserEditResolverService } from '../services/user-edit-resolver.service';
+import {
+  ProfileEditComponent,
+  UserHomeComponent,
+  UserItemComponent,
+  UserListComponent,
+  UserProfileComponent,
+} from './components';
 
 const routes: Routes = [
   {
     path: '',
     component: UserHomeComponent,
-    canActivate: [AuthGuard],
     children: [
-      { path: '', component: UserItemComponent},
-      { path: 'profile', component: UserProfileComponent},
-      { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard]},
-    ]
+      {
+        path: '',
+        component: UserItemComponent,
+      },
+      {
+        path: 'profile',
+        component: UserProfileComponent,
+      },
+      { path: 'edit/:id', component: ProfileEditComponent},
+      {
+        path: 'users-list',
+        loadChildren: () =>
+          import('../admin/admin.module').then((m) => m.AdminModule),
+        canLoad: [AuthGuard],
+      },
+    ],
   },
 ];
 

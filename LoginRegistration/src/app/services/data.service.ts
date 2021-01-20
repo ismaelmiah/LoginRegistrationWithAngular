@@ -40,7 +40,7 @@ export class DataService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.userSubject.next(null);
-    this.router.navigate(['login']);
+    this.router.navigate(['account/login']);
   }
 
   register(user: User) {

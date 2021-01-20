@@ -17,11 +17,11 @@ export class LoginFormComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
 
- 
-  constructor(private dataService: DataService, 
+  constructor(
+    private dataService: DataService,
     private alertService: AlertService,
-    private route: ActivatedRoute,
-    private router: Router,) {}
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.initform();
   }
@@ -45,25 +45,28 @@ export class LoginFormComponent implements OnInit {
     const password = this.loginForm.get('password').value;
     this.submitted = true;
 
-        // reset alerts on submit
-        this.alertService.clear();
+    // reset alerts on submit
+    this.alertService.clear();
 
-        // stop here if form is invalid
-        if (this.loginForm.invalid) {
-            return;
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.dataService
+      .login(email, password)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.router.navigate(['user']);
+
+        },
+        (error) => {
+          this.alertService.error(error);
+          this.loading = false;
         }
-
-        this.loading = true;
-        this.dataService.login(email, password)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.router.navigate(['user']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+      );
   }
 
   getErrorForEmailField() {

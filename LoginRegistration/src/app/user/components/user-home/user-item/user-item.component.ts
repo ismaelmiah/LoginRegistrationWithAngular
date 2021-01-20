@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/Model';
 import { DataService } from 'src/app/services';
@@ -9,21 +10,17 @@ import { DataService } from 'src/app/services';
   styleUrls: ['./user-item.component.css'],
 })
 export class UserItemComponent implements OnInit, OnDestroy {
-  get id(): number {
-    return this.dataService.userValue.id;
-  }
-  get currentUserSubscription(): Subscription {
-    return this.dataService.getById(this.id).subscribe((data) => {
-      this.currentUser = data;
-    });
-  }
   currentUser: User;
+  dataSubscription: Subscription
+  constructor(private route: ActivatedRoute) {}
 
-  constructor(private dataService: DataService) {}
   ngOnDestroy(): void {
+    this.dataSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.currentUserSubscription
+    this.dataSubscription = this.route.data.subscribe((data: Data) => {
+      this.currentUser = data['profile'];
+    });
   }
 }

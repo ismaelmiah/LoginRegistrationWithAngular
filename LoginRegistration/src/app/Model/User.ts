@@ -6,7 +6,7 @@ export class User {
   dateOfBirth: string;
   password: string;
   gender: string;
-  interests: string[];
+  interests: string;
   address: string;
   phone: string;
 }
