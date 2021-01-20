@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../Auth';
+import { UsersResolverService } from '../services';
 import { UserEditResolverService } from '../services/user-edit-resolver.service';
 import {
   ProfileEditComponent,
@@ -23,7 +24,11 @@ const routes: Routes = [
         path: 'profile',
         component: UserProfileComponent,
       },
-      { path: 'edit/:id', component: ProfileEditComponent},
+      {
+        path: 'edit/:id',
+        component: ProfileEditComponent,
+        resolve: { edit: UserEditResolverService },
+      },
       {
         path: 'users-list',
         loadChildren: () =>

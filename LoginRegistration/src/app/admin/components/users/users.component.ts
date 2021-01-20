@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { User } from 'src/app/Model';
 import { DataService } from 'src/app/services';
 
@@ -10,7 +11,7 @@ import { DataService } from 'src/app/services';
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit, OnDestroy {
-  users: User[] = [];
+  users = null;
   dataSubscription: Subscription;
   constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) {}
   ngOnDestroy(): void {
@@ -18,9 +19,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.dataSubscription = this.dataService.getAll().subscribe((data) => {
+    this.dataSubscription = this.dataService.getAll().pipe(first()).subscribe(data=> {
       this.users = data;
-    });
+    })
   }
 
   onEdit(id: number){
@@ -28,6 +29,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number){
-    this.router.navigate(['user/edit', id])
+    const user = this.users.find(x => x.id === id);
+        user.isDeleting = true;
+        this.dataService.delete(id)
+            .pipe(first())
+            .subscribe(() => {
+                this.users = this.users.filter(x => x.id !== id) 
+            });
   }
 }

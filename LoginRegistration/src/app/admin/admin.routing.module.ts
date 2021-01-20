@@ -5,10 +5,7 @@ import { UserDetailComponent, UsersComponent } from './components';
  
  
 const routes: Routes = [
-    {   path: '', component: UsersComponent,
-        children :[
-            { path: '', component: UserDetailComponent},
-        ]
+    {   path: '', component: UsersComponent
     },
 ];
  

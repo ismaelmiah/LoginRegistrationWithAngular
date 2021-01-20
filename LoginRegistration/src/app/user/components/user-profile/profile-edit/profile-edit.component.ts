@@ -18,7 +18,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   id: number;
   loading = false;
   submitted = false;
-  currentUser: User;
   loadUser: User;
   dataSubscription: Subscription;
 
@@ -34,16 +33,13 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    //this.dataSubscription.unsubscribe();
+    this.dataSubscription.unsubscribe();
   }
   initForm() {
     this.id = +this.route.snapshot.params['id'];
-    this.currentUser = this.route.parent.snapshot.data.profile;
-    if (this.id === this.currentUser.id) {
-      this.loadUser = this.currentUser;
-    } else {
-      this.loadUser = new User();
-    }
+      this.dataSubscription = this.route.data.subscribe(data => {
+        this.loadUser = data['edit'];
+      })
 
     this.EditProfileForm = new FormGroup({
       firstName: new FormControl(this.loadUser.firstName, [
@@ -72,19 +68,12 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // this.dataService.register(this.signUpForm).subscribe((data: any) => {
-    //   this.users.push(data);
-    // });
     console.log("Submitted ", this.EditProfileForm)
     this.submitted = true;
 
     // reset alerts on submit
     this.alertService.clear();
 
-    // stop here if form is invalid
-    // if (this.EditProfileForm.invalid) {
-    //   return;
-    // }
     console.log(this.id);
     this.loading = true;
     this.dataService
