@@ -15,11 +15,11 @@ import { CustomValidators } from 'src/app/Utils/CustomValidators';
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
   EditProfileForm: FormGroup;
-  id: string;
-  isAddMode: boolean;
+  id: number;
   loading = false;
   submitted = false;
   currentUser: User;
+  loadUser: User;
   dataSubscription: Subscription;
 
   constructor(
@@ -34,36 +34,40 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.dataSubscription.unsubscribe();
+    //this.dataSubscription.unsubscribe();
   }
   initForm() {
-    this.id = this.route.snapshot.params['id'];
-    this.isAddMode = !this.id;
-
-    if (!this.isAddMode) {
-      this.dataSubscription = this.route.data.subscribe((data: User) => {
-        this.currentUser = data['profile'];
-      });
+    this.id = +this.route.snapshot.params['id'];
+    this.currentUser = this.route.parent.snapshot.data.profile;
+    if (this.id === this.currentUser.id) {
+      this.loadUser = this.currentUser;
+    } else {
+      this.loadUser = new User();
     }
 
     this.EditProfileForm = new FormGroup({
-      firstName: new FormControl(this.currentUser.firstName, [
+      firstName: new FormControl(this.loadUser.firstName, [
         Validators.required,
         CustomValidators.nameFormat,
         Validators.minLength(3),
       ]),
-      lastName: new FormControl(this.currentUser.lastName, [
+      lastName: new FormControl(this.loadUser.lastName, [
         Validators.required,
         CustomValidators.nameFormat,
         Validators.minLength(3),
       ]),
-      Phone: new FormControl(
-        this.currentUser.phone,
-        Validators.pattern(/^(0|[1-9][0-9]*)$/)
+      email: new FormControl(this.loadUser.email, CustomValidators.mailFormat),
+      password: new FormControl(
+        this.loadUser.password,
+        CustomValidators.checkPasswords
       ),
-      Address: new FormControl(this.currentUser.address),
-      Gender: new FormControl(this.currentUser.gender),
-      Interests: new FormControl(this.currentUser.interests),
+      phone: new FormControl(
+        this.loadUser.phone,
+        Validators.pattern(/^(?:\+88|01)?(?:\d{11}|\d{13})$/)
+      ),
+      address: new FormControl(this.loadUser.address),
+      gender: new FormControl(this.loadUser.gender),
+      interests: new FormControl(this.loadUser.interests),
     });
   }
 
@@ -71,25 +75,28 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     // this.dataService.register(this.signUpForm).subscribe((data: any) => {
     //   this.users.push(data);
     // });
+    console.log("Submitted ", this.EditProfileForm)
     this.submitted = true;
 
     // reset alerts on submit
     this.alertService.clear();
 
     // stop here if form is invalid
-    if (this.EditProfileForm.invalid) {
-      return;
-    }
-
+    // if (this.EditProfileForm.invalid) {
+    //   return;
+    // }
+    console.log(this.id);
     this.loading = true;
     this.dataService
-      .update(2, this.EditProfileForm.value)
+      .update(this.id, this.EditProfileForm.value)
       .pipe(first())
       .subscribe(
         (data) => {
           this.alertService.success('Registration successful', {
             keepAfterRouteChange: true,
           });
+          console.log("Updated Requested");
+
           this.router.navigate(['/user'], { relativeTo: this.route });
         },
         (error) => {
@@ -103,4 +110,17 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     return CustomValidators.getErrorForNameField(field, this.EditProfileForm);
   }
 
+  getErrorForEmailField() {
+    return CustomValidators.getErrorForEmailField(
+      'email',
+      this.EditProfileForm
+    );
+  }
+
+  getErrorForPasswordField() {
+    return CustomValidators.getErrorForPassword(
+      'password',
+      this.EditProfileForm
+    );
+  }
 }
