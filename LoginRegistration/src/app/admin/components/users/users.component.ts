@@ -13,28 +13,45 @@ import { DataService } from 'src/app/services';
 export class UsersComponent implements OnInit, OnDestroy {
   users = null;
   dataSubscription: Subscription;
-  constructor(private dataService: DataService, private route: ActivatedRoute, private router: Router) {}
+
+  p: number = 1;
+  constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
   ngOnDestroy(): void {
     this.dataSubscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.dataSubscription = this.dataService.getAll().pipe(first()).subscribe(data=> {
-      this.users = data;
-    })
+    this.dataSubscription = this.dataService
+      .getAll()
+      .pipe(first())
+      .subscribe((data) => {
+        this.users = data;
+      });
   }
 
-  onEdit(id: number){
-    this.router.navigate(['user/edit', id])
+  key: string = 'id';
+  reverse: boolean = false;
+  sort(key) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 
-  onDelete(id: number){
-    const user = this.users.find(x => x.id === id);
-        user.isDeleting = true;
-        this.dataService.delete(id)
-            .pipe(first())
-            .subscribe(() => {
-                this.users = this.users.filter(x => x.id !== id) 
-            });
+  onEdit(id: number) {
+    this.router.navigate(['user/edit', id]);
+  }
+
+  onDelete(id: number) {
+    const user = this.users.find((x) => x.id === id);
+    user.isDeleting = true;
+    this.dataService
+      .delete(id)
+      .pipe(first())
+      .subscribe(() => {
+        this.users = this.users.filter((x) => x.id !== id);
+      });
   }
 }

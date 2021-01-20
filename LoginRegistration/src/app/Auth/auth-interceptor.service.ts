@@ -6,11 +6,11 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 // array in local storage for registered users
 let users = [
-  { id: 1, firstName: 'A', lastName: 'B', email: 'admin@gmail.com', password: 'Ismail1'},
-  { id: 2, firstName: 'B', lastName: 'B', email: 'b@gmail.com', password: 'Ismail1'},
-  { id: 3, firstName: 'C', lastName: 'B', email: 'c@gmail.com', password: 'Ismail1'},
-  { id: 4, firstName: 'D', lastName: 'B', email: 'd@gmail.com', password: 'Ismail1'},
-  { id: 5, firstName: 'E', lastName: 'B', email: 'e@gmail.com', password: 'Ismail1'},
+  { id: 1, firstName: 'Ashiq', lastName: 'Miah', email: 'ashiq@gmail.com', password: 'Ismail1'},
+  { id: 2, firstName: 'Bappi', lastName: 'Roy', email: 'bappi@gmail.com', password: 'Ismail1'},
+  { id: 3, firstName: 'Rabiul', lastName: 'Hasan', email: 'rabiul@gmail.com', password: 'Ismail1'},
+  { id: 4, firstName: 'Tahsan', lastName: 'Ahamed', email: 'tahsan@gmail.com', password: 'Ismail1'},
+  { id: 5, firstName: 'Zahid', lastName: 'Miah', email: 'zahid@gmail.com', password: 'Ismail1'},
 ];//JSON.parse(localStorage.getItem('users')) || [];
 
 @Injectable()
