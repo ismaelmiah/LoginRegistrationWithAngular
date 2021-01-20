@@ -14,11 +14,6 @@ const routes: Routes = [
     component: MainContentComponent,
     children: [
       {
-        path: '',
-        component: HomeComponent,
-        canActivate: [AuthGuard],
-      },
-      {
         path: 'account',
         loadChildren: () =>
           import('../account/account.module').then((m) => m.AccountModule),
@@ -29,12 +24,6 @@ const routes: Routes = [
           import('../user/user.module').then((m) => m.UserModule),
         canActivate: [AuthGuard],
         resolve: { profile: ProfileResolverService },
-      },
-      {
-        path: 'admin',
-        loadChildren: () =>
-          import('../admin/admin.module').then((m) => m.AdminModule),
-        canLoad: [AuthGuard],
       },
     ],
   },

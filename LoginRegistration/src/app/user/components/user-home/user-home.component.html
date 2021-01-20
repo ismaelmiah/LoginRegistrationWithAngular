@@ -15,6 +15,12 @@
           <a class="nav-link" routerLinkActive="active" routerLink="profile"
             >Profile</a
           >
+          </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link" routerLinkActive="active" routerLink="users-list"
+            >User List</a
+          >
+          </li>
       </ul>
     </div>
   </div>

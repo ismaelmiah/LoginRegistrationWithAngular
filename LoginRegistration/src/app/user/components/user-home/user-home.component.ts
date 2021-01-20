@@ -10,16 +10,17 @@ import { User } from 'src/app/Model';
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
   currentUser: User;
-  dataSubscription: Subscription
+  dataSubscription: Subscription;
+  isAdmin: boolean;
   constructor(private route: ActivatedRoute) {}
 
-  ngOnDestroy(): void {
-    this.dataSubscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 
   ngOnInit(): void {
     this.dataSubscription = this.route.data.subscribe((data: Data) => {
       this.currentUser = data['profile'];
+      this.isAdmin = this.currentUser.email === 'admin@gmail.com';
     });
+    this.dataSubscription.unsubscribe();
   }
 }

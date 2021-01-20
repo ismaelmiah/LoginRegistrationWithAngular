@@ -69,7 +69,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
             user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
             users.push(user);
-            localStorage.setItem('users', JSON.stringify(users));
             return ok();
         }
 
@@ -98,7 +97,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
             // update and save user
             Object.assign(user, params);
-            localStorage.setItem('users', JSON.stringify(users));
+            //localStorage.setItem('users', JSON.stringify(users));
 
             return ok();
         }
@@ -107,7 +106,7 @@ export class AuthInterceptor implements HttpInterceptor {
             if (!isLoggedIn()) return unauthorized();
 
             users = users.filter(x => x.id !== idFromUrl());
-            localStorage.setItem('users', JSON.stringify(users));
+            //localStorage.setItem('users', JSON.stringify(users));
             return ok();
         }
 

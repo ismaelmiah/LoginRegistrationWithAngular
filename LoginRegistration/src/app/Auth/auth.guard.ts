@@ -20,9 +20,12 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   canLoad(route: Route): boolean {
     const user = this.dataService.userValue;
-    if (user.email === 'admin@gmail.com') {
+    if (user) {
       return true;
     }
+    // not logged in so redirect to login page with the return url
+    this.router.navigate(['page']);
+    return false;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
