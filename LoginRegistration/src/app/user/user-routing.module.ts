@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../Auth';
-import { UsersResolverService } from '../services';
 import { UserEditResolverService } from '../services/user-edit-resolver.service';
 import {
   ProfileEditComponent,
   UserHomeComponent,
   UserItemComponent,
-  UserListComponent,
   UserProfileComponent,
 } from './components';
 

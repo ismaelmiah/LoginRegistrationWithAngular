@@ -15,11 +15,14 @@ import { CustomValidators } from 'src/app/Utils/CustomValidators';
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
   EditProfileForm: FormGroup;
+  roles: string[] = ['Admin', 'User'];
+
   id: number;
   loading = false;
   submitted = false;
   loadUser: User;
   dataSubscription: Subscription;
+  isAdminLogged: boolean = false;
 
   constructor(
     private dataService: DataService,
@@ -37,10 +40,12 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
   initForm() {
     this.id = +this.route.snapshot.params['id'];
-      this.dataSubscription = this.route.data.subscribe(data => {
-        this.loadUser = data['edit'];
-      })
-
+    this.dataSubscription = this.route.data.subscribe((data) => {
+      this.loadUser = data['edit'];
+    });
+    this.isAdminLogged =
+      this.loadUser.id !==
+      +JSON.parse(localStorage.getItem('currentUser'))['id'];
     this.EditProfileForm = new FormGroup({
       firstName: new FormControl(this.loadUser.firstName, [
         Validators.required,
@@ -52,6 +57,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
         CustomValidators.nameFormat,
         Validators.minLength(3),
       ]),
+      dateOfBirth: new FormControl(this.loadUser.dateOfBirth),
       email: new FormControl(this.loadUser.email, CustomValidators.mailFormat),
       password: new FormControl(
         this.loadUser.password,
@@ -64,11 +70,12 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       address: new FormControl(this.loadUser.address),
       gender: new FormControl(this.loadUser.gender),
       interests: new FormControl(this.loadUser.interests),
+      role: new FormControl(this.loadUser.role),
     });
   }
 
   onSubmit() {
-    console.log("Submitted ", this.EditProfileForm)
+    console.log('Submitted ', this.EditProfileForm);
     this.submitted = true;
 
     // reset alerts on submit
@@ -84,9 +91,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           this.alertService.success('Registration successful', {
             keepAfterRouteChange: true,
           });
-          console.log("Updated Requested");
-
-          this.router.navigate(['/user'], { relativeTo: this.route });
+          this.router.navigate([''], { relativeTo: this.route });
         },
         (error) => {
           this.alertService.error(error);

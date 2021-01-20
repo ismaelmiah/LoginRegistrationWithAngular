@@ -11,7 +11,6 @@ import { OrderModule } from 'ngx-order-pipe';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    Ng2OrderModule,
     NgxPaginationModule,
     OrderModule
   ]
