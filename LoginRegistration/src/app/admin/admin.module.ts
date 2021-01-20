@@ -4,6 +4,7 @@ import { UserDetailComponent, UserListComponent, UsersComponent } from './compon
 import { AdminRoutingModule } from './admin.routing.module';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
   declarations: [UsersComponent, UserListComponent, UserDetailComponent],
@@ -12,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AdminRoutingModule,
     Ng2OrderModule,
     NgxPaginationModule,
+    OrderModule
   ]
 })
 export class AdminModule { }
