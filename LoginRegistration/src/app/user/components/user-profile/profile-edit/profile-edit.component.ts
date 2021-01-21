@@ -31,21 +31,18 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.initForm();
+  ngOnInit(): void { 
+     this.initForm();
   }
 
-  ngOnDestroy(): void {
-    this.dataSubscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
   initForm() {
     this.id = +this.route.snapshot.params['id'];
+    console.log(this.id)
     this.dataSubscription = this.route.data.subscribe((data) => {
       this.loadUser = data['edit'];
     });
-    this.isAdminLogged =
-      this.loadUser.id !==
-      +JSON.parse(localStorage.getItem('currentUser'))['id'];
+
     this.EditProfileForm = new FormGroup({
       firstName: new FormControl(this.loadUser.firstName, [
         Validators.required,
