@@ -3,9 +3,6 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  UrlTree,
-  CanLoad,
-  Route,
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -22,7 +19,7 @@ export class AdminGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
     let permit =
-      JSON.parse(localStorage.getItem('currentUser'))['username'] ===
+      JSON.parse(localStorage.getItem('currentUser'))['email'] ===
         'admin@gmail.com' ||
       +route.params['id'] ===
         JSON.parse(localStorage.getItem('currentUser'))['id'];

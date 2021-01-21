@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/Model';
-import { DataService } from 'src/app/services';
-import { AlertService } from 'src/app/Utils/alert.service';
+import { DataService, AlertService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
 import { DatePipe } from '@angular/common';
 
@@ -91,7 +90,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success('Registration successful', {
+          this.alertService.warn('Updated successful', {
             keepAfterRouteChange: true,
           });
           this.router.navigate(['/user'], { relativeTo: this.route });

@@ -11,7 +11,6 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { User } from '../Model';
 
-// array in local storage for registered users
 let users: User[] = [
   {
     id: 1,
@@ -78,7 +77,7 @@ let users: User[] = [
     interests: '',
     dateOfBirth: ''
   },
-]; //JSON.parse(localStorage.getItem('users')) || [];
+];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -122,13 +121,13 @@ export class AuthInterceptor implements HttpInterceptor {
       const user = users.find(
         (x) => x.email === email && x.password === password
       );
-      if (!user) return error('Username or password is incorrect');
+      if (!user) return error('email or password is incorrect');
       return ok({
         id: user.id,
-        username: user.email,
+        email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        token: 'fake-jwt-token',
+        token: 'token',
       });
     }
 
@@ -136,7 +135,7 @@ export class AuthInterceptor implements HttpInterceptor {
       const user = body;
 
       if (users.find((x) => x.email === user.email)) {
-        return error('Username "' + user.email + '" is already taken');
+        return error('email "' + user.email + '" is already taken');
       }
 
       user.id = users.length ? Math.max(...users.map((x) => x.id)) + 1 : 1;
@@ -162,14 +161,10 @@ export class AuthInterceptor implements HttpInterceptor {
       let params = body;
       let user = users.find((x) => x.id === idFromUrl());
 
-      // only update password if entered
       if (!params.password) {
         delete params.password;
       }
-
-      // update and save user
       Object.assign(user, params);
-      //localStorage.setItem('users', JSON.stringify(users));
 
       return ok();
     }
@@ -178,11 +173,8 @@ export class AuthInterceptor implements HttpInterceptor {
       if (!isLoggedIn()) return unauthorized();
 
       users = users.filter((x) => x.id !== idFromUrl());
-      //localStorage.setItem('users', JSON.stringify(users));
       return ok();
     }
-
-    // helper functions
 
     function ok(body?) {
       return of(new HttpResponse({ status: 200, body }));
@@ -197,7 +189,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     function isLoggedIn() {
-      return headers.get('Authorization') === 'Bearer fake-jwt-token';
+      return headers.get('Authorization') === 'Bearer token';
     }
 
     function idFromUrl() {

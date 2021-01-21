@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, DataService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'src/app/Utils/alert.service';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -45,11 +45,10 @@ export class LoginFormComponent implements OnInit {
     const password = this.loginForm.get('password').value;
     this.submitted = true;
 
-    // reset alerts on submit
     this.alertService.clear();
 
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
+      console.log('form not valid')
       return;
     }
 
@@ -60,7 +59,6 @@ export class LoginFormComponent implements OnInit {
       .subscribe(
         (data) => {
           this.router.navigate(['user']);
-
         },
         (error) => {
           this.alertService.error(error);
