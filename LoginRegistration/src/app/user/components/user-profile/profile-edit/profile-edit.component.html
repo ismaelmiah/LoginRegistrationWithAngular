@@ -53,21 +53,8 @@
             <label for="dateOfBirth">Date Of Birth</label>
           </div>
           <div class="col-md-9">
-            <input
-              type="text"
-              formControlName="dateOfBirth"
-              class="form-control"
-              id="dateOfBirth"
-              appDatepicker
-            />
-            <span
-              class="help-block text-danger"
-              *ngIf="
-                !EditProfileForm.get('lastName').valid &&
-                EditProfileForm.get('lastName').touched
-              "
-              >{{ getErrorForNameField("lastName") }}</span
-            >
+            <dp-date-picker formControlName="dateOfBirth"
+            [config]="datePickerConfig"></dp-date-picker>
           </div>
         </div>
       </div>
@@ -192,10 +179,10 @@
           </div>
           <div class="col-md-9">
             <input
-            type="text"
-            formControlName="interests"
-            class="form-control"
-          />
+              type="text"
+              formControlName="interests"
+              class="form-control"
+            />
           </div>
         </div>
       </div>
@@ -205,11 +192,7 @@
             <label for="selectrole">Role</label>
           </div>
           <div class="col-md-9">
-            <select
-              id="selectrole"
-              class="form-control"
-              formControlName="role"
-            >
+            <select id="selectrole" class="form-control" formControlName="role">
               <option [value]="r" *ngFor="let r of roles; let i = index">
                 {{ r | uppercase }}
               </option>
@@ -218,11 +201,10 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-warning" [disabled]="loading"> <span
-          *ngIf="loading"
-          class="spinner-border spinner-border-sm"
-        ></span>
-        <span *ngIf="!loading">Update</span></button>
+        <button type="submit" class="btn btn-warning" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+          <span *ngIf="!loading">Update</span>
+        </button>
       </div>
     </form>
   </div>

@@ -8,7 +8,6 @@ import {
   Route,
   Router,
 } from '@angular/router';
-import { stat } from 'fs';
 import { Observable } from 'rxjs';
 import { DataService } from '../services';
 

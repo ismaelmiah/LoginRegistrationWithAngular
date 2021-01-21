@@ -7,6 +7,7 @@ import { User } from 'src/app/Model';
 import { DataService } from 'src/app/services';
 import { AlertService } from 'src/app/Utils/alert.service';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-edit',
@@ -14,6 +15,10 @@ import { CustomValidators } from 'src/app/Utils/CustomValidators';
   styleUrls: ['./profile-edit.component.css'],
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
+  date = '';
+  dateOutForm = '';
+  datePickerConfig = { format: 'DD-MM-YYYY', firstDayOfWeek: 'su' };
+
   EditProfileForm: FormGroup;
   roles: string[] = ['Admin', 'User'];
 
@@ -28,17 +33,21 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private datePipe: DatePipe
+  ) {
+    this.date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.dateOutForm = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  }
 
-  ngOnInit(): void { 
-     this.initForm();
+  ngOnInit(): void {
+    this.initForm();
   }
 
   ngOnDestroy(): void {}
   initForm() {
     this.id = +this.route.snapshot.params['id'];
-    console.log(this.id)
+    console.log(this.id);
     this.dataSubscription = this.route.data.subscribe((data) => {
       this.loadUser = data['edit'];
     });
@@ -72,7 +81,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log('Submitted ', this.EditProfileForm);
     this.submitted = true;
 
     // reset alerts on submit
@@ -88,7 +96,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           this.alertService.success('Registration successful', {
             keepAfterRouteChange: true,
           });
-          this.router.navigate([''], { relativeTo: this.route });
+          this.router.navigate(['/user'], { relativeTo: this.route });
         },
         (error) => {
           this.alertService.error(error);
@@ -113,5 +121,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       'password',
       this.EditProfileForm
     );
+  }
+
+  dateEventEmitter(date) {
+    console.log(date);
   }
 }
