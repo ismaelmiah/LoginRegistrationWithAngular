@@ -47,7 +47,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
   initForm() {
     this.id = +this.route.snapshot.params['id'];
-    console.log(this.id);
     this.dataSubscription = this.route.data.subscribe((data) => {
       this.loadUser = data['edit'];
     });
@@ -86,7 +85,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     // reset alerts on submit
     this.alertService.clear();
 
-    console.log(this.id);
     this.loading = true;
     this.dataService
       .update(this.id, this.EditProfileForm.value)

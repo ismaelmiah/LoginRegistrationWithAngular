@@ -9,16 +9,17 @@ import {
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { mrPipe } from '../Utils/CustomPipe';
-import { DpDatePickerModule } from 'ng2-date-picker';
+import { DatePickerDirective } from '../Utils/directives/date-picker.directive';
 @NgModule({
   declarations: [
     UserProfileComponent,
     UserHomeComponent,
     ProfileEditComponent,
     UserItemComponent,
+    DatePickerDirective,
     mrPipe,
   ],
-  imports: [CommonModule, UserRoutingModule, ReactiveFormsModule, DpDatePickerModule],
+  imports: [CommonModule, UserRoutingModule, ReactiveFormsModule],
   providers: [DatePipe] 
 })
 export class UserModule {}

@@ -53,8 +53,15 @@
             <label for="dateOfBirth">Date Of Birth</label>
           </div>
           <div class="col-md-9">
-            <dp-date-picker formControlName="dateOfBirth"
-            [config]="datePickerConfig"></dp-date-picker>
+            <!-- <dp-date-picker formControlName="dateOfBirth"
+            [config]="datePickerConfig"></dp-date-picker> -->
+            <input
+              type="text"
+              appDatepicker
+              formControlName="dateOfBirth"
+              class="form-control"
+              
+            />
           </div>
         </div>
       </div>
