@@ -29,6 +29,7 @@ export class DataService {
     return this.http.post(`${this.usersUrl}/users/authenticate`, { email, password })
         .pipe(map((authUser: AuthUser) => {
             if (authUser && authUser.token) {
+                console.log(authUser)
                 localStorage.setItem('currentUser', JSON.stringify(authUser));
                 this.userSubject.next(authUser);
             }

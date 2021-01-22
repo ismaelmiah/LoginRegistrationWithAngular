@@ -47,11 +47,6 @@ export class LoginFormComponent implements OnInit {
 
     this.alertService.clear();
 
-    if (this.loginForm.invalid) {
-      console.log('form not valid')
-      return;
-    }
-
     this.loading = true;
     this.dataService
       .login(email, password)
@@ -61,7 +56,8 @@ export class LoginFormComponent implements OnInit {
           this.router.navigate(['user']);
         },
         (error) => {
-          this.alertService.error(error);
+          if (this.loginForm.invalid) this.alertService.error('Form Not Valid');
+          else this.alertService.error(error);
           this.loading = false;
         }
       );

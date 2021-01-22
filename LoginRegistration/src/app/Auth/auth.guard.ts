@@ -6,10 +6,7 @@ import {
   Router,
   CanLoad,
   Route,
-  UrlSegment,
-  UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { DataService } from '../services';
 
 @Injectable({

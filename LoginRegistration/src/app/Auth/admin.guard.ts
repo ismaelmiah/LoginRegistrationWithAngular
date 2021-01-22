@@ -19,8 +19,8 @@ export class AdminGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
     let permit =
-      JSON.parse(localStorage.getItem('currentUser'))['email'] ===
-        'admin@gmail.com' ||
+      JSON.parse(localStorage.getItem('currentUser'))['token'] ===
+        'admintoken' ||
       +route.params['id'] ===
         JSON.parse(localStorage.getItem('currentUser'))['id'];
     if (permit) return true;

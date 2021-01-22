@@ -50,6 +50,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       this.loadUser = data['edit'];
     });
 
+    this.isAdminLogged =
+      JSON.parse(localStorage.getItem('currentUser'))['token'] === 'admintoken';
+
     this.EditProfileForm = new FormGroup({
       firstName: new FormControl(this.loadUser.firstName, [
         Validators.required,

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/Model';
-import { DataService } from 'src/app/services';
+import { AlertService, DataService } from 'src/app/services';
 
 @Component({
   selector: 'app-users',
@@ -18,7 +18,8 @@ export class UsersComponent implements OnInit, OnDestroy {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
   ngOnDestroy(): void {
     this.dataSubscription.unsubscribe();
@@ -52,6 +53,7 @@ export class UsersComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(() => {
         this.users = this.users.filter((x) => x.id !== id);
+        this.alertService.info('User Deleted Successfully');
       });
   }
 }

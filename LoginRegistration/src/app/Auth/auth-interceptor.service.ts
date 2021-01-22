@@ -23,7 +23,7 @@ let users: User[] = [
     role: 'Admin',
     address: '',
     interests: '',
-    dateOfBirth: ''
+    dateOfBirth: '',
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ let users: User[] = [
     role: 'User',
     address: '',
     interests: '',
-    dateOfBirth: ''
+    dateOfBirth: '',
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ let users: User[] = [
     role: 'User',
     address: '',
     interests: '',
-    dateOfBirth: ''
+    dateOfBirth: '',
   },
   {
     id: 4,
@@ -62,7 +62,7 @@ let users: User[] = [
     role: 'User',
     address: '',
     interests: '',
-    dateOfBirth: ''
+    dateOfBirth: '',
   },
   {
     id: 5,
@@ -75,7 +75,7 @@ let users: User[] = [
     role: 'User',
     address: '',
     interests: '',
-    dateOfBirth: ''
+    dateOfBirth: '',
   },
 ];
 
@@ -122,13 +122,15 @@ export class AuthInterceptor implements HttpInterceptor {
         (x) => x.email === email && x.password === password
       );
       if (!user) return error('email or password is incorrect');
-      return ok({
+      const localSave = {
         id: user.id,
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        token: 'token',
-      });
+        token: (user.role === 'Admin' ? 'admin' : 'user') + 'token',
+      };
+      console.log(localSave)
+      return ok(localSave);
     }
 
     function register() {
@@ -189,7 +191,10 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     function isLoggedIn() {
-      return headers.get('Authorization') === 'Bearer token';
+      return (
+        headers.get('Authorization') === 'Bearer admintoken' ||
+        headers.get('Authorization') === 'Bearer usertoken'
+      );
     }
 
     function idFromUrl() {
