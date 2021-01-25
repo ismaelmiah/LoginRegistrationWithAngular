@@ -3,6 +3,10 @@ import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Alert, AlertType } from 'src/app/Model';
 import { AlertService } from 'src/app/services';
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 
 @Component({ selector: 'alert', templateUrl: 'alert.component.html' })
 export class AlertComponent implements OnInit, OnDestroy {

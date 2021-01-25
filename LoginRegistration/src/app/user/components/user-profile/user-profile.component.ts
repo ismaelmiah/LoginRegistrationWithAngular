@@ -9,7 +9,11 @@ import { Subscription } from 'rxjs';
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   currentUser: any;
+<<<<<<< HEAD
   dataSubscription: Subscription;
+=======
+  dataSubscription: Subscription
+>>>>>>> develop
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnDestroy(): void {
@@ -20,7 +24,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.currentUser = this.route.parent.snapshot.data.profile;
   }
 
+<<<<<<< HEAD
   onEdit(id: number) {
+=======
+  onEdit(id: number){
+>>>>>>> develop
     this.currentUser.isEditing = true;
     this.router.navigate(['user/edit', id]);
   }

@@ -6,35 +6,35 @@ import { Alert, AlertType } from '../Model';
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
-  private subject = new Subject<Alert>();
-  private defaultId = 'default-alert';
+    private subject = new Subject<Alert>();
+    private defaultId = 'default-alert';
 
-  alert(alert: Alert) {
-    alert.id = alert.id || this.defaultId;
-    this.subject.next(alert);
-  }
+    alert(alert: Alert) {
+        alert.id = alert.id || this.defaultId;
+        this.subject.next(alert);
+    }
 
-  clear(id = this.defaultId) {
-    this.subject.next(new Alert({ id }));
-  }
+    clear(id = this.defaultId) {
+        this.subject.next(new Alert({ id }));
+    }
 
-  onAlert(id = this.defaultId): Observable<Alert> {
-    return this.subject.asObservable().pipe(filter((x) => x && x.id === id));
-  }
+    onAlert(id = this.defaultId): Observable<Alert> {
+        return this.subject.asObservable().pipe(filter(x => x && x.id === id));
+    }
 
-  success(message: string, options?: any) {
-    this.alert(new Alert({ ...options, type: AlertType.Success, message }));
-  }
+    success(message: string, options?: any) {
+        this.alert(new Alert({ ...options, type: AlertType.Success, message }));
+    }
 
-  error(message: string, options?: any) {
-    this.alert(new Alert({ ...options, type: AlertType.Error, message }));
-  }
+    error(message: string, options?: any) {
+        this.alert(new Alert({ ...options, type: AlertType.Error, message }));
+    }
 
-  info(message: string, options?: any) {
-    this.alert(new Alert({ ...options, type: AlertType.Info, message }));
-  }
+    info(message: string, options?: any) {
+        this.alert(new Alert({ ...options, type: AlertType.Info, message }));
+    }
 
-  warn(message: string, options?: any) {
-    this.alert(new Alert({ ...options, type: AlertType.Warning, message }));
-  }
+    warn(message: string, options?: any) {
+        this.alert(new Alert({ ...options, type: AlertType.Warning, message }));
+    }
 }

@@ -14,12 +14,15 @@ export class InMemoryDataService implements InMemoryDbService {
         lastName: 'Miah',
         email: 'admin@gmail.com',
         password: 'Ismail1',
+<<<<<<< HEAD
         phone: '',
         gender: '',
         role: 'Admin',
         address: '',
         interests: '',
         dateOfBirth: '',
+=======
+>>>>>>> develop
       },
       {
         id: 2,
@@ -27,12 +30,15 @@ export class InMemoryDataService implements InMemoryDbService {
         lastName: 'Roy',
         email: 'bappi@gmail.com',
         password: 'Ismail1',
+<<<<<<< HEAD
         phone: '',
         gender: '',
         role: 'User',
         address: '',
         interests: '',
         dateOfBirth: '',
+=======
+>>>>>>> develop
       },
       {
         id: 3,
@@ -40,12 +46,15 @@ export class InMemoryDataService implements InMemoryDbService {
         lastName: 'Hasan',
         email: 'rabiul@gmail.com',
         password: 'Ismail1',
+<<<<<<< HEAD
         phone: '',
         gender: '',
         role: 'User',
         address: '',
         interests: '',
         dateOfBirth: '',
+=======
+>>>>>>> develop
       },
       {
         id: 4,
@@ -53,12 +62,15 @@ export class InMemoryDataService implements InMemoryDbService {
         lastName: 'Ahamed',
         email: 'tahsan@gmail.com',
         password: 'Ismail1',
+<<<<<<< HEAD
         phone: '',
         gender: '',
         role: 'User',
         address: '',
         interests: '',
         dateOfBirth: '',
+=======
+>>>>>>> develop
       },
       {
         id: 5,
@@ -66,6 +78,7 @@ export class InMemoryDataService implements InMemoryDbService {
         lastName: 'Miah',
         email: 'zahid@gmail.com',
         password: 'Ismail1',
+<<<<<<< HEAD
         phone: '',
         gender: '',
         role: 'User',
@@ -75,6 +88,10 @@ export class InMemoryDataService implements InMemoryDbService {
       },
     ];
     
+=======
+      },
+    ];
+>>>>>>> develop
     return { users };
   }
 

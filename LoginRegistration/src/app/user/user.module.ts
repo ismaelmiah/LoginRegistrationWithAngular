@@ -8,7 +8,11 @@ import {
 } from './components';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { mrPipe } from '../Utils/mr-pipe.pipe';
+=======
+import { mrPipe } from '../Utils/CustomPipe';
+>>>>>>> develop
 import { DatePickerDirective } from '../Utils/directives/date-picker.directive';
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { DatePickerDirective } from '../Utils/directives/date-picker.directive';
     mrPipe,
   ],
   imports: [CommonModule, UserRoutingModule, ReactiveFormsModule],
+<<<<<<< HEAD
   providers: [DatePipe],
+=======
+  providers: [DatePipe] 
+>>>>>>> develop
 })
 export class UserModule {}
