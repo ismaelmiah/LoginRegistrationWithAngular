@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 import { Component, OnDestroy, OnInit } from '@angular/core';
-=======
-import { Component, OnInit } from '@angular/core';
->>>>>>> develop
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { DataService, AlertService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
@@ -28,12 +25,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-<<<<<<< HEAD
   ngOnDestroy(): void {
     if(this.submitted) this.registerSubscription.unsubscribe();
   }
-=======
->>>>>>> develop
 
   ngOnInit(): void {
     this.initForm();
@@ -47,18 +41,10 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
 
     this.alertService.clear();
     if (this.signUpForm.invalid) {
-<<<<<<< HEAD
       return;
     }
     this.loading = true;
     this.registerSubscription = this.dataService
-=======
-      console.log('form not valid')
-      return;
-    }
-    this.loading = true;
-    this.dataService
->>>>>>> develop
       .register(this.signUpForm.value)
       .pipe(first())
       .subscribe(

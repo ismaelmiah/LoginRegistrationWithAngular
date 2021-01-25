@@ -58,13 +58,9 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe(
         (data) => {
-<<<<<<< HEAD
           if(JSON.parse(localStorage.getItem('currentUser'))['token'] ===
             'admintoken') this.router.navigate(['/user/users-list']);
           else this.router.navigate(['user']);
-=======
-          this.router.navigate(['user']);
->>>>>>> develop
         },
         (error) => {
           if (this.loginForm.invalid) this.alertService.error('Form Not Valid');
