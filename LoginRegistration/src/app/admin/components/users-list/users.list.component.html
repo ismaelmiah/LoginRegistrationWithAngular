@@ -1,0 +1,53 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th (click)="sort('firstName')">
+        First Name &nbsp;<i class="fas fa-sort"></i>
+      </th>
+      <th (click)="sort('email')">Email &nbsp;<i class="fas fa-sort"></i></th>
+      <th (click)="sort('role')">Role &nbsp;<i class="fas fa-sort"></i></th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let user of users
+          | orderBy: key:reverse
+          | paginate: { itemsPerPage: 3, currentPage: p }
+      "
+    >
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button
+            type="button"
+            class="btn btn-warning"
+            (click)="onEdit(user.id)"
+          >
+            Edit
+          </button>
+          <button
+            (click)="onDelete(user.id)"
+            class="btn btn-danger"
+            [disabled]="user.isDeleting"
+          >
+            <span
+              *ngIf="user.isDeleting"
+              class="spinner-border spinner-border-sm"
+            ></span>
+            <span *ngIf="!user.isDeleting">Delete</span>
+          </button>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="!users">
+      <td colspan="4" class="text-center">
+        <span class="spinner-border spinner-border-lg align-center"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

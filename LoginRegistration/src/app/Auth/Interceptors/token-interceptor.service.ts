@@ -4,13 +4,12 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DataService } from '../services';
+import { DataService } from '../../services';
 
 @Injectable()
-export class JwtInterceptorService implements HttpInterceptor {
+export class TokenInterceptorService implements HttpInterceptor {
   constructor(private dataService: DataService) {}
   private usersUrl = 'http://localhost:4200';
 
@@ -18,7 +17,6 @@ export class JwtInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // add auth header with jwt if user is logged in and request is to the api url
     const user = this.dataService.userValue;
     const isLoggedIn = user && user.token;
     const isApiUrl = request.url.startsWith(this.usersUrl);
@@ -33,6 +31,3 @@ export class JwtInterceptorService implements HttpInterceptor {
     return next.handle(request);
   }
 }
-export const authToketnInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
-];

@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthUser } from 'src/app/Model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services';
 
 @Component({
@@ -8,13 +6,15 @@ import { DataService } from 'src/app/services';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn$: boolean;
   constructor(private dataService: DataService) {}
+  ngOnDestroy(): void {
+  }
 
   ngOnInit(): void {
     this.dataService.user.subscribe((status) => {
-      this.isLoggedIn$ = status?true: false;
+      this.isLoggedIn$ = status ? true : false;
     });
   }
   logout() {

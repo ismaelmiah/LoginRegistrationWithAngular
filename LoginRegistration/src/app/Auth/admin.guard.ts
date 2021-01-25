@@ -6,13 +6,12 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DataService } from '../services';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivate {
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,

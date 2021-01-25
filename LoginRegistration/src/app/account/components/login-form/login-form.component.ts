@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService, DataService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -12,16 +13,20 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login-form.component.css'],
   providers: [AuthService],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   submitted: boolean;
   loading: boolean;
+  loginSubscription: Subscription;
 
   constructor(
     private dataService: DataService,
     private alertService: AlertService,
     private router: Router
   ) {}
+  ngOnDestroy(): void {
+    if(this.submitted) this.loginSubscription.unsubscribe();
+  }
   ngOnInit(): void {
     this.initform();
   }
@@ -48,12 +53,18 @@ export class LoginFormComponent implements OnInit {
     this.alertService.clear();
 
     this.loading = true;
-    this.dataService
+    this.loginSubscription = this.dataService
       .login(email, password)
       .pipe(first())
       .subscribe(
         (data) => {
+<<<<<<< HEAD
+          if(JSON.parse(localStorage.getItem('currentUser'))['token'] ===
+            'admintoken') this.router.navigate(['/user/users-list']);
+          else this.router.navigate(['user']);
+=======
           this.router.navigate(['user']);
+>>>>>>> develop
         },
         (error) => {
           if (this.loginForm.invalid) this.alertService.error('Form Not Valid');

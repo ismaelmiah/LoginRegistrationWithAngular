@@ -13,18 +13,26 @@ import { slideInAnimation } from 'src/app/shared/animation';
 })
 export class UserHomeComponent implements OnInit, OnDestroy {
   currentUser: User;
-  dataSubscription: Subscription;
+  profileSubscription: Subscription;
   isAdmin: boolean;
+<<<<<<< HEAD
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnDestroy(): void {
+  }
+=======
   color: string = "yellow";
   constructor(private route: ActivatedRoute, private dataService: DataService) {}
   
   ngOnDestroy(): void {}
+>>>>>>> develop
 
   ngOnInit(): void {
-    this.dataSubscription = this.route.data.subscribe((data: Data) => {
+    this.profileSubscription = this.route.data.subscribe((data: Data) => {
       this.currentUser = data['profile'];
       this.isAdmin = this.currentUser.role === 'Admin';
     });
-    this.dataSubscription.unsubscribe();
+    //Unsubscribe here because it's only for menu
+    this.profileSubscription.unsubscribe();
   }
 }

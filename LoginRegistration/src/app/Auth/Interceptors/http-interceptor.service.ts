@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
-import { User } from '../Model';
+import { User } from '../../Model';
 
 let users: User[] = [
   {
@@ -80,18 +80,17 @@ let users: User[] = [
 ];
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class httpInterceptor implements HttpInterceptor {
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = request;
 
-    // wrap in delayed observable to simulate server api call
     return of(null)
       .pipe(mergeMap(handleRoute))
-      .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-      .pipe(delay(500))
+      .pipe(materialize())
+      .pipe(delay(200))
       .pipe(dematerialize());
 
     function handleRoute() {
@@ -129,7 +128,6 @@ export class AuthInterceptor implements HttpInterceptor {
         lastName: user.lastName,
         token: (user.role === 'Admin' ? 'admin' : 'user') + 'token',
       };
-      console.log(localSave)
       return ok(localSave);
     }
 
@@ -147,7 +145,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     function getUsers() {
       if (!isLoggedIn()) return unauthorized();
-      return ok(users);
+      const userOnly = users.filter((x) => x.role === 'User');
+      return ok(userOnly);
     }
 
     function getUserById() {
@@ -203,6 +202,3 @@ export class AuthInterceptor implements HttpInterceptor {
     }
   }
 }
-export const authInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-];
