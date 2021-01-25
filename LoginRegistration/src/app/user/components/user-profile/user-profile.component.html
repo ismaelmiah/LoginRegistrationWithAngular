@@ -1,74 +1,107 @@
 <div class="row">
-  <div class="col-md-10">
+  <div class="col-md-12">
     <div class="card mb-3">
       <div class="card-body">
         <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">First Name</h6>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">First Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.firstName }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Last Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.lastName }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Date of birth</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.dateOfBirth }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.email }}
+              </div>
+            </div>
+            <hr />
           </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser.firstName }}
-          </div>
-        </div>
-        <hr />
-
-        <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">Last Name</h6>
-          </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser?.lastName }}
-          </div>
-        </div>
-        <hr />
-        <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">Email</h6>
-          </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser?.email }}
-          </div>
-        </div>
-        <hr />
-        <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">Phone</h6>
-          </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser?.phone }}
-          </div>
-        </div>
-        <hr />
-        <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">Address</h6>
-          </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser?.address }}
-          </div>
-        </div>
-        <hr />
-        <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">Gender</h6>
-          </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser?.gender }}
-          </div>
-        </div>
-        <hr />
-        <div class="row">
-          <div class="col-sm-3">
-            <h6 class="mb-0">Interests</h6>
-          </div>
-          <div class="col-sm-9 text-secondary">
-            {{ currentUser?.interests }}
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Phone</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.phone }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Address</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.address }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Gender</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.gender }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Interests</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.interests }}
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Role</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.role }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-md-2">
-    <a routerLink="../edit/{{currentUser?.id}}" class="btn btn-primary mr-1">Edit</a>
+    <button
+      (click)="onEdit(currentUser.id)"
+      class="btn btn-warning mr-1"
+      [disabled]="currentUser.isEditing"
+    >
+      <span
+        *ngIf="currentUser.isEditing"
+        class="spinner-border spinner-border-sm"
+      ></span>
+      <span *ngIf="!currentUser.isEditing">Edit Details</span>
+    </button>
   </div>
 </div>

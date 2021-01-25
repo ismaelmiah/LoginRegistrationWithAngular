@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from '../Auth';
+import { AdminGuard, AuthGuard } from '../Auth';
 import { UserEditResolverService } from '../services/user-edit-resolver.service';
 import {
   ProfileEditComponent,
   UserHomeComponent,
   UserItemComponent,
-  UserListComponent,
   UserProfileComponent,
 } from './components';
 
@@ -23,7 +22,12 @@ const routes: Routes = [
         path: 'profile',
         component: UserProfileComponent,
       },
-      { path: 'edit/:id', component: ProfileEditComponent},
+      {
+        path: 'edit/:id',
+        component: ProfileEditComponent,
+        resolve: { edit: UserEditResolverService },
+        canActivate: [AdminGuard],
+      },
       {
         path: 'users-list',
         loadChildren: () =>

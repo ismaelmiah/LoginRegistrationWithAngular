@@ -1,22 +1,36 @@
 <div class="container">
-    <div class="row">
-      <div class="col-xl-12">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a
-              class="nav-link"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              [routerLink]="['/user']"
-              >Home</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="profile"
-              >Profile</a
-            >
-        </ul>
-      </div>
+  <div class="row mb-4">
+    <h1 class="text-center col-md-12 p-3 display-3 bg-success text-white">
+      Angular Assignment - BootCamp
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item">Modules</li>
+        <li class="list-group-item list-group-item-primary">Lazy loading</li>
+        <li class="list-group-item list-group-item-secondary">Route Guards</li>
+        <li class="list-group-item list-group-item-success">Resolvers</li>
+        <li class="list-group-item list-group-item-danger">Services</li>
+        <li class="list-group-item list-group-item-warning">
+          Custom Directives
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-primary">Reactive Forms</li>
+        <li class="list-group-item list-group-item-warning">
+          At least one Custom validator
+        </li>
+        <li class="list-group-item list-group-item-success">
+          At least one Custom Pipe
+        </li>
+        <li class="list-group-item list-group-item-danger">Interceptors</li>
+        <li class="list-group-item list-group-item-secondary">
+          A custom form control that uses a jquery/other plugin
+        </li>
+      </ul>
     </div>
   </div>
-  
+</div>

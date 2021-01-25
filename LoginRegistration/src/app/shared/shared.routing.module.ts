@@ -14,6 +14,10 @@ const routes: Routes = [
     component: MainContentComponent,
     children: [
       {
+        path: '',
+        component: HomeComponent,
+      },
+      {
         path: 'account',
         loadChildren: () =>
           import('../account/account.module').then((m) => m.AccountModule),

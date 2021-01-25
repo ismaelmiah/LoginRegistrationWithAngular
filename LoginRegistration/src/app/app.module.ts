@@ -3,11 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { PreloadAllModules, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService, DataService } from './services';
-import { authInterceptorProviders, authToketnInterceptorProviders, errorInterceptors } from './Auth';
+import {
+  ErrorInterceptorService,
+  httpInterceptor,
+  TokenInterceptorService,
+} from './Auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,9 +26,17 @@ import { authInterceptorProviders, authToketnInterceptorProviders, errorIntercep
   ],
   providers: [
     DataService,
-    errorInterceptors,
-    authToketnInterceptorProviders,
-    authInterceptorProviders,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: httpInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

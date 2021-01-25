@@ -17,7 +17,6 @@ export class UserEditResolverService implements Resolve<User> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): User | Observable<User> | Promise<User> {
-    //console.log(route.params['id'])
-    return this.dataService.getById(route.params['id']);
+    return this.dataService.getById(+route.params['id']);
   }
 }

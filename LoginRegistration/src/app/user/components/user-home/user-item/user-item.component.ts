@@ -1,8 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/Model';
-import { DataService } from 'src/app/services';
 
 @Component({
   selector: 'app-user-item',
@@ -11,7 +10,7 @@ import { DataService } from 'src/app/services';
 })
 export class UserItemComponent implements OnInit, OnDestroy {
   currentUser: User;
-  dataSubscription: Subscription
+  dataSubscription: Subscription;
   constructor(private route: ActivatedRoute) {}
 
   ngOnDestroy(): void {

@@ -1,15 +1,25 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserHomeComponent, ProfileEditComponent, UserListComponent, UserItemComponent, UserProfileComponent } from './components';
+import { CommonModule, DatePipe } from '@angular/common';
+import {
+  UserHomeComponent,
+  ProfileEditComponent,
+  UserItemComponent,
+  UserProfileComponent,
+} from './components';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { mrPipe } from '../Utils/mr-pipe.pipe';
+import { DatePickerDirective } from '../Utils/directives/date-picker.directive';
 @NgModule({
-  declarations: [UserProfileComponent, UserHomeComponent, ProfileEditComponent, UserListComponent, UserItemComponent],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    ReactiveFormsModule
-  ]
+  declarations: [
+    UserProfileComponent,
+    UserHomeComponent,
+    ProfileEditComponent,
+    UserItemComponent,
+    DatePickerDirective,
+    mrPipe,
+  ],
+  imports: [CommonModule, UserRoutingModule, ReactiveFormsModule],
+  providers: [DatePipe],
 })
-export class UserModule { }
+export class UserModule {}

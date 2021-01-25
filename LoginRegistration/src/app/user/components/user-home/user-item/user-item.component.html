@@ -10,10 +10,13 @@
             width="150"
           />
           <div class="mt-3">
-            <h4>{{ currentUser?.firstName }} {{ currentUser?.lastName }}</h4>
-            <p class="text-secondary mb-1">{{ currentUser?.email }}</p>
+            <h4>
+              {{ currentUser.firstName | mrPipe: "Mr." }}
+              {{ currentUser.lastName }}
+            </h4>
+            <p class="text-secondary mb-1">{{ currentUser.email }}</p>
             <p class="text-muted font-size-sm">
-              Address: {{ currentUser?.address }}
+              Role: {{ currentUser.role | uppercase }}
             </p>
           </div>
         </div>

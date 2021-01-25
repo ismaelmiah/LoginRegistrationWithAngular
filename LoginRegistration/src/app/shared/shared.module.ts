@@ -25,7 +25,5 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
 })
 export class SharedModule {
-  constructor() {
-    console.log('SharedModule Called');
-  }
+  constructor() { }
 }

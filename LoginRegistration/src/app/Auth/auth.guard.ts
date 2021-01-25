@@ -6,10 +6,7 @@ import {
   Router,
   CanLoad,
   Route,
-  UrlSegment,
-  UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 import { DataService } from '../services';
 
 @Injectable({
@@ -20,23 +17,18 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   canLoad(route: Route): boolean {
     const user = this.dataService.userValue;
-    if (user) {
-      return true;
-    }
-    // not logged in so redirect to login page with the return url
-    this.router.navigate(['page']);
+    if (user) return true;
+    // not logged in so redirect to error page
+    this.router.navigate(['errorpage']);
     return false;
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const user = this.dataService.userValue;
-    if (user) {
-        // authorised so return true
-        return true;
-    }
+    if (user) return true;
 
-    // not logged in so redirect to login page with the return url
+    // not logged in so redirect to login page
     this.router.navigate(['/account/login']);
     return false;
-}
+  }
 }

@@ -28,7 +28,7 @@ export class CustomValidators {
     return null;
   }
 
-  static FormConfigured(): FormGroup{
+  static FormConfigured(): FormGroup {
     return new FormGroup({
       firstName: new FormControl(null, [
         Validators.required,
@@ -40,17 +40,14 @@ export class CustomValidators {
         this.nameFormat,
         Validators.minLength(3),
       ]),
-      email: new FormControl(null, [
-        Validators.required,
-        this.mailFormat,
-      ]),
+      email: new FormControl(null, [Validators.required, this.mailFormat]),
       password: new FormControl(null, [
         Validators.required,
         this.checkPasswords,
         Validators.minLength(6),
       ]),
       role: new FormControl(null),
-    })
+    });
   }
 
   static getErrorForPassword(field: string, signUpForm: FormGroup): string {

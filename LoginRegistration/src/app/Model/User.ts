@@ -9,6 +9,7 @@ export class User {
   interests: string;
   address: string;
   phone: string;
+  role: string;
 }
 
 

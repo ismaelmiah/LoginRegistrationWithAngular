@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserDetailComponent, UserEditComponent, UserItemComponent, UserListComponent, UsersComponent } from './components';
+import { UsersListComponent } from './components';
 import { AdminRoutingModule } from './admin.routing.module';
-
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
-  declarations: [UsersComponent, UserListComponent, UserDetailComponent, UserItemComponent, UserEditComponent],
+  declarations: [UsersListComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    NgxPaginationModule,
+    OrderModule
   ]
 })
 export class AdminModule { }

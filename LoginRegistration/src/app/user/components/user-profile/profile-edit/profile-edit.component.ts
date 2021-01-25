@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/Model';
-import { DataService } from 'src/app/services';
-import { AlertService } from 'src/app/Utils/alert.service';
+import { DataService, AlertService } from 'src/app/services';
 import { CustomValidators } from 'src/app/Utils/CustomValidators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile-edit',
@@ -14,36 +14,44 @@ import { CustomValidators } from 'src/app/Utils/CustomValidators';
   styleUrls: ['./profile-edit.component.css'],
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
+  date = '';
+  dateOutForm = '';
+  datePickerConfig = { format: 'DD-MM-YYYY', firstDayOfWeek: 'su' };
+
   EditProfileForm: FormGroup;
+  roles: string[] = ['Admin', 'User'];
+
   id: number;
   loading = false;
   submitted = false;
-  currentUser: User;
   loadUser: User;
   dataSubscription: Subscription;
+  isAdminLogged: boolean = false;
 
   constructor(
     private dataService: DataService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private datePipe: DatePipe
+  ) {
+    this.date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.dateOutForm = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  }
 
   ngOnInit(): void {
     this.initForm();
   }
 
-  ngOnDestroy(): void {
-    //this.dataSubscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
   initForm() {
     this.id = +this.route.snapshot.params['id'];
-    this.currentUser = this.route.parent.snapshot.data.profile;
-    if (this.id === this.currentUser.id) {
-      this.loadUser = this.currentUser;
-    } else {
-      this.loadUser = new User();
-    }
+    this.dataSubscription = this.route.data.subscribe((data) => {
+      this.loadUser = data['edit'];
+    });
+
+    this.isAdminLogged =
+      JSON.parse(localStorage.getItem('currentUser'))['token'] === 'admintoken';
 
     this.EditProfileForm = new FormGroup({
       firstName: new FormControl(this.loadUser.firstName, [
@@ -56,6 +64,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
         CustomValidators.nameFormat,
         Validators.minLength(3),
       ]),
+      dateOfBirth: new FormControl(this.loadUser.dateOfBirth),
       email: new FormControl(this.loadUser.email, CustomValidators.mailFormat),
       password: new FormControl(
         this.loadUser.password,
@@ -68,35 +77,25 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       address: new FormControl(this.loadUser.address),
       gender: new FormControl(this.loadUser.gender),
       interests: new FormControl(this.loadUser.interests),
+      role: new FormControl(this.loadUser.role),
     });
   }
 
   onSubmit() {
-    // this.dataService.register(this.signUpForm).subscribe((data: any) => {
-    //   this.users.push(data);
-    // });
-    console.log("Submitted ", this.EditProfileForm)
     this.submitted = true;
 
     // reset alerts on submit
     this.alertService.clear();
 
-    // stop here if form is invalid
-    // if (this.EditProfileForm.invalid) {
-    //   return;
-    // }
-    console.log(this.id);
     this.loading = true;
     this.dataService
       .update(this.id, this.EditProfileForm.value)
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success('Registration successful', {
+          this.alertService.warn('Updated successful', {
             keepAfterRouteChange: true,
           });
-          console.log("Updated Requested");
-
           this.router.navigate(['/user'], { relativeTo: this.route });
         },
         (error) => {
@@ -122,5 +121,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       'password',
       this.EditProfileForm
     );
+  }
+
+  dateEventEmitter(date) {
+    console.log(date);
   }
 }
